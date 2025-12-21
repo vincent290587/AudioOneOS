@@ -39,7 +39,7 @@
   };
   
   sound {
-      status = "disabled"; 
+      status = "okay"; 
       compatible = "simple-audio-card";
       simple-audio-card,name = "Zynq Sound Formatter";
       simple-audio-card,bitclock-master = <&dailink0_master>;
@@ -59,20 +59,21 @@
   };
 };
 
-&i2s_receiver_0 {
-  status = "disabled"; 
-};
-
 /* Fix broken link to DAI */
 &audio_formatter_0 {
-  status = "disabled";
+  status = "okay";
   xlnx,tx = <&spdif_0>;
 };
 
-/* Link the SPDIF IP with its Audio Formatter */
+/* Link the SPDIF TX IP with its Audio Formatter */
 &spdif_0 {
-  status = "disabled";
+  status = "okay";
   xlnx,snd-pcm = <&audio_formatter_0>;
+};
+
+/* SPDIF RX */
+&spdif_1 {
+  status = "disabled"; 
 };
 
 &usb0 {
