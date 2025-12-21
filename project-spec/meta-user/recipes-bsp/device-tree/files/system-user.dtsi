@@ -37,31 +37,37 @@
     view-port = <0x170>;
     drv-vbus;
   };
-
-  snd_soc_dummy_dai: dummy-dai {
-      compatible = "snd-soc-dummy";
-      #sound-dai-cells = <0>;
-  };
   
   sound {
       compatible = "simple-audio-card";
       simple-audio-card,name = "Zynq Sound Formatter";
-      simple-audio-card,format = "i2s";
       simple-audio-card,bitclock-master = <&dailink0_master>;
       simple-audio-card,frame-master = <&dailink0_master>;
-  
-      simple-audio-card,widgets = "Line Out";
-      simple-audio-card,routing =
-          "Line Out", "Playback";
+      
+      /* advertise supported rates & formats */
+      simple-audio-card,rates = <32000 48000 96000 192000>;
+      simple-audio-card,formats = "S16_LE", "S24_LE";
   
       simple-audio-card,cpu {
           sound-dai = <&audio_formatter_0>;  /* <- Sound Formatter IP */
       };
   
       dailink0_master: simple-audio-card,codec {
-          sound-dai = <&snd_soc_dummy_dai>;  /* dummy codec, no config */
+          sound-dai = <&spdif_0>;
       };
   };
+};
+
+/* Fix broken link to DAI */
+&audio_formatter_0 {
+  status = "okay";
+  xlnx,tx = <&spdif_0>;
+};
+
+/* Link the SPDIF IP with its Audio Formatter */
+&spdif_0 {
+  status = "okay";
+  xlnx,snd-pcm = <&audio_formatter_0>;
 };
 
 &usb0 {

@@ -468,7 +468,7 @@ CONFIG_can-utils=y
 #
 # curl 
 #
-# CONFIG_curl is not set
+CONFIG_curl=y
 # CONFIG_curl-dev is not set
 # CONFIG_libcurl is not set
 # CONFIG_curl-dbg is not set
@@ -3771,7 +3771,7 @@ CONFIG_Init-manager-sysvinit=y
 #
 # user packages 
 #
-CONFIG_gpio-demo=y
+# CONFIG_gpio-demo is not set
 # CONFIG_peekpoke is not set
 
 #
