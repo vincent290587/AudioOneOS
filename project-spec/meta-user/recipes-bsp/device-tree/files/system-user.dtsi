@@ -59,6 +59,26 @@
   };
 };
 
+&spw0_axi_bram_ctrl_0 {
+  compatible = "xlnx,spacewire";
+	interrupt-parent = <&intc>;
+	interrupts = <0 33 4>;
+	clock-names = "spw_clk_tx_flex";
+	clocks = <&spw0_clk_wiz_0 2>;
+};
+
+&spw1_axi_bram_ctrl_0 {
+  compatible = "xlnx,spacewire";
+	interrupt-parent = <&intc>;
+	interrupts = <0 34 4>;
+	clock-names = "spw_clk_tx_flex";
+	clocks = <&spw1_clk_wiz_0 2>;
+};
+
+&axi_gpio_rgb {
+  gpio-line-names = "ledR" ,"ledG" ,"ledB";
+};
+
 /* Fix broken link to DAI */
 &audio_formatter_0 {
   status = "okay";
@@ -140,6 +160,6 @@
     compatible = "adi,adxl345", "adxl345", "adi,adxl34x", "adxl34x";
     reg = <0x53>;
     interrupt-parent = <&intc>;
-    interrupts = <0x0 0x1e 0x4>;
+    interrupts = <0 35 4>;
   };
 };
