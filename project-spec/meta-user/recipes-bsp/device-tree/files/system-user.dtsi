@@ -60,7 +60,7 @@
 };
 
 &spw_1_clk_wiz_0 {
-  status = "disabled";
+  status = "okay";
 };
 
 &spw_1_axi_bram_spw_native {
