@@ -252,12 +252,12 @@ CONFIG_YOCTO_PARALLEL_MAKE=""
 #
 # Add pre-mirror url 
 #
-CONFIG_PRE_MIRROR_URL="https://petalinux.xilinx.com/sswreleases/rel-v${PETALINUX_VER}/downloads"
+CONFIG_PRE_MIRROR_URL="file:///mnt/hdd0/Sandbox/downloads"
 
 #
 # Local sstate feeds settings
 #
-CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL=""
+CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="file:///mnt/hdd0/Sandbox/sstate-cache"
 CONFIG_YOCTO_NETWORK_SSTATE_FEEDS=y
 
 #

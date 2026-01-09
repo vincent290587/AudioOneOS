@@ -39,40 +39,36 @@
   };
   
   sound {
-      status = "okay"; 
+      status = "disabled"; 
       compatible = "simple-audio-card";
       simple-audio-card,name = "Zynq Sound Formatter";
       simple-audio-card,bitclock-master = <&dailink0_master>;
       simple-audio-card,frame-master = <&dailink0_master>;
       
       /* advertise supported rates & formats */
-      simple-audio-card,rates = <32000 48000 96000 192000>;
+      simple-audio-card,rates = <44100>;
       simple-audio-card,formats = "S16_LE", "S24_LE";
   
       simple-audio-card,cpu {
-          sound-dai = <&audio_formatter_0>;  /* <- Sound Formatter IP */
+          sound-dai = <&hier_spdif_audio_formatter_0>;  /* <- Sound Formatter IP */
       };
   
       dailink0_master: simple-audio-card,codec {
-          sound-dai = <&spdif_0>;
+          sound-dai = <&hier_spdif_spdif_0>;
       };
   };
 };
 
-&spw0_axi_bram_ctrl_0 {
-  compatible = "xlnx,spacewire";
-	interrupt-parent = <&intc>;
-	interrupts = <0 33 4>;
-	clock-names = "spw_clk_tx_flex";
-	clocks = <&spw0_clk_wiz_0 2>;
+&spw_1_clk_wiz_0 {
+  status = "disabled";
 };
 
-&spw1_axi_bram_ctrl_0 {
+&spw_1_axi_bram_spw_native {
   compatible = "xlnx,spacewire";
 	interrupt-parent = <&intc>;
 	interrupts = <0 34 4>;
 	clock-names = "spw_clk_tx_flex";
-	clocks = <&spw1_clk_wiz_0 2>;
+	clocks = <&spw_1_clk_wiz_0 2>;
 };
 
 &axi_gpio_rgb {
@@ -80,20 +76,15 @@
 };
 
 /* Fix broken link to DAI */
-&audio_formatter_0 {
-  status = "okay";
-  xlnx,tx = <&spdif_0>;
+&hier_spdif_audio_formatter_0 {
+  status = "disabled";
+  xlnx,tx = <&hier_spdif_spdif_0>;
 };
 
 /* Link the SPDIF TX IP with its Audio Formatter */
-&spdif_0 {
-  status = "okay";
-  xlnx,snd-pcm = <&audio_formatter_0>;
-};
-
-/* SPDIF RX */
-&spdif_1 {
-  status = "disabled"; 
+&hier_spdif_spdif_0 {
+  status = "disabled";
+  xlnx,snd-pcm = <&hier_spdif_audio_formatter_0>;
 };
 
 &usb0 {
