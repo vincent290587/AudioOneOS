@@ -80,7 +80,12 @@
 };
 
 &axi_gpio_rgb {
-  gpio-line-names = "ledR" ,"ledG" ,"ledB";
+  gpio-line-names = "ledR", "ledG", "ledB";
+};
+
+&spw_0_axi_gpio_spw {
+  gpio-line-names = "linkdis", "autostart", "linkstart", "txdiv0", "txdiv1", "txdiv2", "txdiv3", "txdiv4", "txdiv5", "txdiv6", "txdiv7", "errdisc", "started", "running", "connecting", "errcred", "erresc", "errpar";
+  xlnx,dout-default = <0x00000001>;
 };
 
 /* Fix broken link to DAI */
