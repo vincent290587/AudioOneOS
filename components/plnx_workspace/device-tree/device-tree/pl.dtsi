@@ -119,6 +119,31 @@
 			xlnx,spdif-mode = <1>;
 			xlnx,userdata-reg = <0>;
 		};
+		spw_0_axi_dma_spw_0: dma@40400000 {
+			#dma-cells = <1>;
+			clock-names = "m_axi_mm2s_aclk", "m_axi_s2mm_aclk", "s_axi_lite_aclk";
+			clocks = <&clkc 15>, <&clkc 15>, <&clkc 15>;
+			compatible = "xlnx,axi-dma-7.1", "xlnx,axi-dma-1.00.a";
+			interrupt-names = "s2mm_introut";
+			interrupt-parent = <&intc>;
+			interrupts = <0 36 4>;
+			reg = <0x40400000 0x10000>;
+			xlnx,addrwidth = <0x20>;
+			xlnx,sg-length-width = <0x1a>;
+			dma-channel@40400000 {
+				compatible = "xlnx,axi-dma-mm2s-channel";
+				dma-channels = <0x1>;
+				xlnx,datawidth = <0x20>;
+				xlnx,device-id = <0x0>;
+			};
+			dma-channel@40400030 {
+				compatible = "xlnx,axi-dma-s2mm-channel";
+				dma-channels = <0x1>;
+				interrupts = <0 36 4>;
+				xlnx,datawidth = <0x8>;
+				xlnx,device-id = <0x0>;
+			};
+		};
 		spw_0_axi_fifo_mm_spw_0: axi_fifo_mm_s@43c40000 {
 			clock-names = "s_axi_aclk";
 			clocks = <&clkc 15>;
@@ -144,7 +169,7 @@
 			xlnx,has-axis-tuser = <0x0>;
 			xlnx,rx-cascade-height = <0x0>;
 			xlnx,rx-enable-ecc = <0x0>;
-			xlnx,rx-fifo-depth = <0x400>;
+			xlnx,rx-fifo-depth = <0x200>;
 			xlnx,rx-fifo-pe-threshold = <0x5>;
 			xlnx,rx-fifo-pf-threshold = <0x1fb>;
 			xlnx,rx-has-ecc-err-inject = <0x0>;
@@ -163,13 +188,25 @@
 			xlnx,use-tx-cut-through = <0x0>;
 			xlnx,use-tx-data = <0x1>;
 		};
-		spw_0_spw_status_regs_0: spw_status_regs@83c00000 {
-			clock-names = "s00_axi_aclk";
+		spw_0_axi_gpio_spw: gpio@81210000 {
+			#gpio-cells = <2>;
+			clock-names = "s_axi_aclk";
 			clocks = <&clkc 15>;
-			compatible = "xlnx,spw-status-regs-1.2";
-			reg = <0x83c00000 0x10000>;
-			xlnx,s00-axi-addr-width = <0x7>;
-			xlnx,s00-axi-data-width = <0x20>;
+			compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+			gpio-controller ;
+			reg = <0x81210000 0x10000>;
+			xlnx,all-inputs = <0x0>;
+			xlnx,all-inputs-2 = <0x1>;
+			xlnx,all-outputs = <0x1>;
+			xlnx,all-outputs-2 = <0x0>;
+			xlnx,dout-default = <0x00000000>;
+			xlnx,dout-default-2 = <0x00000000>;
+			xlnx,gpio-width = <0xb>;
+			xlnx,gpio2-width = <0x7>;
+			xlnx,interrupt-present = <0x0>;
+			xlnx,is-dual = <0x1>;
+			xlnx,tri-default = <0xFFFFFFFF>;
+			xlnx,tri-default-2 = <0xFFFFFFFF>;
 		};
 		spw_1_axi_bram_spw_native: axi_bram_ctrl@80000000 {
 			clock-names = "s_axi_aclk";
