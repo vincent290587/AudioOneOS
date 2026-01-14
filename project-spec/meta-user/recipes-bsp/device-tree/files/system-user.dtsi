@@ -8,13 +8,20 @@
     #size-cells = <1>;
     ranges;
     
-    /* New CMA reservation (e.g., 128MB at 0x30000000) */
+    /* 16 MB reserved for tests on the DMA */
+    dma_src_reserved: buffer@30000000 {
+        compatible = "shared-dma-pool";
+        no-map;
+        reg = <0x30000000 0x01000000>;
+    };
+    
+    /* New CMA reservation (e.g., 128MB at 0x31000000) */
     linux,cma {
       compatible = "shared-dma-pool";
       reusable;   /* Essential for CMA: allows kernel to use it when idle */
       size = <0x08000000>;
       alignment = <0x00001000>;
-      alloc-ranges = <0x30000000 0x08000000>;
+      alloc-ranges = <0x31000000 0x08000000>;
       linux,cma-default; /* Makes this the default pool for the system */
     };
  
