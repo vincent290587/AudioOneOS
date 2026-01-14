@@ -8,20 +8,13 @@
     #size-cells = <1>;
     ranges;
     
-    /* 128 MB */
-    dma_src_reserved: buffer@30000000 {
-      compatible = "shared-dma-pool";
-      no-map;
-      reg = <0x30000000 0x08000000>;
-    };
-    
-    /* New CMA reservation (e.g., 64MB at 0x38000000) */
+    /* New CMA reservation (e.g., 128MB at 0x30000000) */
     linux,cma {
       compatible = "shared-dma-pool";
       reusable;   /* Essential for CMA: allows kernel to use it when idle */
-      size = <0x04000000>;
+      size = <0x08000000>;
       alignment = <0x00001000>;
-      alloc-ranges = <0x38000000 0x04000000>;
+      alloc-ranges = <0x30000000 0x08000000>;
       linux,cma-default; /* Makes this the default pool for the system */
     };
  
@@ -31,7 +24,6 @@
     compatible = "xlnx,axidma-chrdev";
     dmas = <&spw_0_axi_dma_spw_0 0 &spw_0_axi_dma_spw_0 1>;
     dma-names = "tx_channel", "rx_channel";
-    memory-region = <&dma_src_reserved>;
   };    
   
   gpio-leds {
