@@ -10,7 +10,6 @@
     
     /* 16 MB reserved for tests on the DMA */
     dma_src_reserved: buffer@30000000 {
-        compatible = "shared-dma-pool";
         no-map;
         reg = <0x30000000 0x01000000>;
     };
@@ -90,6 +89,7 @@
 };
 
 &spw_0_axi_dma_spw_0 {
+  memory-region = <&dma_src_reserved>;
   dma-channel@40400000 {
     xlnx,device-id = <0x0>;
   };
